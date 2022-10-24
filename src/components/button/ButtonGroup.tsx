@@ -9,6 +9,7 @@ export interface ButtonDefinition {
   text: string|JSX.Element;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   cssProps: CSSProperties;
+  buttonProps?: React.ButtonHTMLAttributes<HTMLButtonElement>
 }
 
 const ButtonGroup = ({buttons, buttonStyleProps}: ButtonGroupProps) => {
@@ -23,6 +24,7 @@ const ButtonGroup = ({buttons, buttonStyleProps}: ButtonGroupProps) => {
               ...buttonStyleProps,
               ...btn.cssProps
             }}
+            {...(btn.buttonProps ?? {})}
           >
             <>{btn.text}</>
           </button>
