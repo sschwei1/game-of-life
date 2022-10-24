@@ -2,6 +2,7 @@ import CellContainer from './CellContainer';
 import {useCallback, useEffect, useState} from 'react';
 
 import '../../styles/game.less';
+import ControlPanel from './ControlPanel';
 
 interface GameProps {
 
@@ -41,6 +42,12 @@ const Game = ({}: GameProps) => {
 
   return (
     <div className='game-container'>
+      <ControlPanel
+        handleStart={() => {}}
+        handleStop={() => {}}
+        handleRandomFill={() => {}}
+        handleClear={() => {}}
+      />
       <CellContainer
         cells={cells}
         width={gameOptions.width}

@@ -1,20 +1,30 @@
 @import 'colors';
 
 .game-container {
-  min-width: 1000px;
-  min-height: 1000px;
-
   display: flex;
+  flex-direction: column;
+
+  .control-panel {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
 
   .cell-container {
     flex-grow: 1;
     display: grid;
+
+    min-width: 500px;
+    min-height: 500px;
 
     .cell {
       background: @col-dark;
       border: 1px solid @col-dark-light;
       width: 100%;
       height: 100%;
+      //pointer-events: none;
+
+      user-select: none;
 
       &.active {
         background: @col-primary;

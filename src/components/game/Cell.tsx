@@ -33,9 +33,9 @@ const Cell = ({value, position, updateCell}: CellProps) => {
   return (
     <div
       className={cellClasses}
+      draggable={false}
       onMouseDown={handleCellMouseDown}
-      // onMouseEnter={handleCellMouseEnter}
-      onMouseOver={handleCellMouseOver}
+      onMouseEnter={handleCellMouseOver}
     />
   )
 }
