@@ -1,0 +1,24 @@
+@import 'colors';
+
+.game-container {
+  min-width: 1000px;
+  min-height: 1000px;
+
+  display: flex;
+
+  .cell-container {
+    flex-grow: 1;
+    display: grid;
+
+    .cell {
+      background: @col-dark;
+      border: 1px solid @col-dark-light;
+      width: 100%;
+      height: 100%;
+
+      &.active {
+        background: @col-primary;
+      }
+    }
+  }
+}
