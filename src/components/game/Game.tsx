@@ -2,7 +2,7 @@ import CellContainer from './CellContainer';
 import {useCallback, useEffect, useRef, useState} from 'react';
 
 import '../../styles/game.less';
-import ControlPanel from './ControlPanel';
+import {ControlPanel} from './controlPanel';
 
 interface GameProps {
 
@@ -33,7 +33,7 @@ const defaultGameOptions: GameOptions = {
   gameState: GameState.Stopped,
   width: 25,
   height: 25,
-  speed: 1000,
+  speed: 200,
   minSpeed: 10,
   randomizerDensity: 0.3,
   gameRules: {

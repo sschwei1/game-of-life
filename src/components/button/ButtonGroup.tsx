@@ -7,6 +7,7 @@ interface ButtonGroupProps {
 
 export interface ButtonDefinition {
   text: string|JSX.Element;
+  title?: string;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   cssProps: CSSProperties;
   buttonProps?: React.ButtonHTMLAttributes<HTMLButtonElement>
@@ -20,6 +21,7 @@ const ButtonGroup = ({buttons, buttonStyleProps}: ButtonGroupProps) => {
           <button
             key={index}
             onClick={btn.onClick}
+            title={btn.title}
             style={{
               ...buttonStyleProps,
               ...btn.cssProps

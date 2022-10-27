@@ -7,10 +7,6 @@ interface CellProps {
   updateCell: (newVal: boolean, position: number) => void
 }
 
-const defaultClasses: string[] = [
-  'cell'
-];
-
 let currentDragValue = true;
 
 const Cell = ({value, position, updateCell}: CellProps) => {
@@ -32,6 +28,7 @@ const Cell = ({value, position, updateCell}: CellProps) => {
 
   return (
     <div
+      // style={{width: '50px', height:'50px'}}
       className={cellClasses}
       draggable={false}
       onMouseDown={handleCellMouseDown}
