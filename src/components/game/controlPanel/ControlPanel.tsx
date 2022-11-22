@@ -45,7 +45,7 @@ const ControlPanel = ({
         />
       </ControlElement>
 
-      <ControlElement title='Change Speed'>
+      <ControlElement title='Time per iteration' alignment='center'>
         <SpeedSelector
           handleUpdateSpeed={handleUpdateSpeed}
           speed={gameOptions.speed}

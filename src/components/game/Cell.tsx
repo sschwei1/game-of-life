@@ -1,4 +1,4 @@
-import {MouseEvent} from 'react';
+import React, {MouseEvent} from 'react';
 import classNames from 'classnames';
 
 interface CellProps {
@@ -9,7 +9,7 @@ interface CellProps {
 
 let currentDragValue = true;
 
-const Cell = ({value, position, updateCell}: CellProps) => {
+const Cell = React.memo(({value, position, updateCell}: CellProps) => {
   const cellClasses = classNames({
     'cell': true,
     'active': value
@@ -35,6 +35,6 @@ const Cell = ({value, position, updateCell}: CellProps) => {
       onMouseEnter={handleCellMouseOver}
     />
   )
-}
+});
 
 export default Cell;
