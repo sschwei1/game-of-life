@@ -6,34 +6,86 @@ import {
   CiSettings,
   TbArrowsRandom
 } from 'react-icons/all';
-import React, {useMemo} from 'react';
+import React from 'react';
 import {GameOptions, GameState} from '../Game';
 import SpeedSelector from "./SpeedSelector";
 import ControlElement from "./ControlElement";
 
 interface ControlPanelProps {
   gameOptions: GameOptions;
-  handleStart: React.MouseEventHandler<HTMLButtonElement>;
-  handleStop: React.MouseEventHandler<HTMLButtonElement>;
-  handleRandomFill: React.MouseEventHandler<HTMLButtonElement>;
-  handleClear: React.MouseEventHandler<HTMLButtonElement>;
-  handleUpdateSpeed: (newVal: number) => void;
+  updateGameOptions: React.Dispatch<React.SetStateAction<GameOptions>>;
+  updateCells: React.Dispatch<React.SetStateAction<boolean[]>>;
 }
 
 const ControlPanel = ({
                         gameOptions,
-                        handleStart,
-                        handleStop,
-                        handleRandomFill,
-                        handleClear,
-                        handleUpdateSpeed
+                        updateGameOptions,
+                        updateCells
+
 }: ControlPanelProps) => {
-  const controlButtons: ButtonDefinition[] = useMemo(() => [
-    {text: <BsFillPlayFill />, title: 'Start', onClick: handleStart, cssProps: {}, buttonProps: {disabled: gameOptions.gameState === GameState.Running}},
-    {text: <BsFillStopFill />, title: 'Stop', onClick: handleStop, cssProps: {}, buttonProps: {disabled: gameOptions.gameState === GameState.Stopped}},
+  const {
+    width,
+    height,
+    speed,
+    minSpeed,
+    gameState,
+    randomizerDensity
+  } = gameOptions;
+
+  const handleStart = () => {
+    updateGameOptions(prev => {
+      prev.gameState = GameState.Running;
+      return {...prev};
+    });
+  };
+
+  const handleStop = () => {
+    updateGameOptions(prev => {
+      prev.gameState = GameState.Stopped;
+      return {...prev};
+    });
+  };
+
+  const handleRandomFill = () => {
+    const newCells: boolean[] = [];
+    const totalCells = width * height;
+
+    for(let i = 0; i < totalCells; i++) {
+      newCells.push(Math.random() < randomizerDensity);
+    }
+
+    updateCells(newCells);
+  };
+
+  const handleClear = () => {
+    const newCells: boolean[] = [];
+    const totalCells = width * height;
+
+    for(let i = 0; i < totalCells; i++) {
+      newCells.push(false);
+    }
+
+    updateCells(newCells);
+  };
+
+  const handleUpdateSpeed = (newVal: number) => {
+    if(newVal < minSpeed) {
+      newVal = minSpeed;
+    }
+
+    updateGameOptions(prev => {
+      prev.speed = newVal;
+      return {...prev};
+    })
+  };
+
+  const controlButtons: ButtonDefinition[] = [
+    {text: <BsFillPlayFill />, title: 'Start', onClick: handleStart, cssProps: {}, buttonProps: {disabled: gameState === GameState.Running}},
+    {text: <BsFillStopFill />, title: 'Stop', onClick: handleStop, cssProps: {}, buttonProps: {disabled: gameState === GameState.Stopped}},
     {text: <TbArrowsRandom />, title: 'Randomize Cells', onClick: handleRandomFill, cssProps: {}},
     {text: <AiOutlineClear />, title: 'Clear Cells', onClick: handleClear, cssProps: {}}
-  ], [handleStart, handleStop, handleRandomFill, handleClear, gameOptions]);
+  ];
+
   return (
     <div className='control-panel'>
       <ControlElement title='Actions'>
@@ -48,7 +100,7 @@ const ControlPanel = ({
       <ControlElement title='Time per iteration' alignment='center'>
         <SpeedSelector
           handleUpdateSpeed={handleUpdateSpeed}
-          speed={gameOptions.speed}
+          speed={speed}
         />
       </ControlElement>
 

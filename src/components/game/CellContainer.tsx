@@ -36,7 +36,7 @@ const CellContainer = ({cells, width, height, updateCell}: CellContainerProps) =
     </div>
   ) : (
     <div>
-      Amount of cells does not match Width/Height
+      Amount of cells do not match Width/Height
     </div>
   )
 }

@@ -43,6 +43,7 @@ const defaultGameOptions: GameOptions = {
   }
 }
 
+
 const Game = ({}: GameProps) => {
   const [gameOptions, setGameOptions] = useState<GameOptions>(defaultGameOptions);
   const [cells, setCells] = useState<boolean[]>([]);
@@ -50,7 +51,6 @@ const Game = ({}: GameProps) => {
   const intervalRef = useRef<number|null>(null);
 
   const {
-    randomizerDensity,
     width,
     height,
     speed,
@@ -58,59 +58,12 @@ const Game = ({}: GameProps) => {
     gameRules
   } = gameOptions;
 
-  const handleStart = useCallback(() => {
-    setGameOptions(prev => {
-      prev.gameState = GameState.Running;
-      return {...prev};
-    });
-  }, []);
-
-  const handleStop = useCallback(() => {
-    setGameOptions(prev => {
-      prev.gameState = GameState.Stopped;
-      return {...prev};
-    });
-  }, []);
-
-  const handleRandomFill = useCallback(() => {
-    const newCells: boolean[] = [];
-    const totalCells = width * height;
-
-    for(let i = 0; i < totalCells; i++) {
-      newCells.push(Math.random() < randomizerDensity);
-    }
-
-    setCells(newCells);
-  }, [randomizerDensity, width, height]);
-
-  const handleClear = useCallback(() => {
-    const newCells: boolean[] = [];
-    const totalCells = width * height;
-
-    for(let i = 0; i < totalCells; i++) {
-      newCells.push(false);
-    }
-
-    setCells(newCells);
-  }, [width, height]);
-
   const handleCellUpdate = useCallback((newVal: boolean, position: number) => {
     setCells(prev => {
       prev[position] = newVal;
       return [...prev];
     });
   }, []);
-
-  const handleUpdateSpeed = useCallback((newVal: number) => {
-    if(newVal < gameOptions.minSpeed) {
-      newVal = gameOptions.minSpeed;
-    }
-
-    setGameOptions(prev => {
-      prev.speed = newVal;
-      return {...prev};
-    })
-  }, [gameOptions]);
 
   const countNeighbours = useCallback((x: number, y: number) => {
     let cnt = 0;
@@ -133,7 +86,7 @@ const Game = ({}: GameProps) => {
     }
 
     return cnt;
-  }, [cells]);
+  }, [cells, width, height]);
 
   const calcNextIteration = useCallback(() => {
     const newCells: boolean[] = [];
@@ -157,8 +110,10 @@ const Game = ({}: GameProps) => {
   }, [cells, width, height]);
 
   useEffect(() => {
-    handleClear();
-  }, [handleClear]);
+    const newCells = new Array(height * width);
+    newCells.fill(false);
+    setCells(newCells);
+  }, []);
 
   useEffect(() => {
     if(intervalRef.current) {
@@ -177,11 +132,8 @@ const Game = ({}: GameProps) => {
       <h1 className='title'>Game of Life</h1>
       <ControlPanel
         gameOptions={gameOptions}
-        handleStart={handleStart}
-        handleStop={handleStop}
-        handleRandomFill={handleRandomFill}
-        handleClear={handleClear}
-        handleUpdateSpeed={handleUpdateSpeed}
+        updateGameOptions={setGameOptions}
+        updateCells={setCells}
       />
       <CellContainer
         cells={cells}
