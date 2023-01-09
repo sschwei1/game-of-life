@@ -27,7 +27,6 @@ const ControlPanel = ({
     width,
     height,
     speed,
-    minSpeed,
     gameState,
     randomizerDensity
   } = gameOptions;
@@ -69,12 +68,8 @@ const ControlPanel = ({
   };
 
   const handleUpdateSpeed = (newVal: number) => {
-    if(newVal < minSpeed) {
-      newVal = minSpeed;
-    }
-
     updateGameOptions(prev => {
-      prev.speed = newVal;
+      prev.speed.value = newVal;
       return {...prev};
     })
   };

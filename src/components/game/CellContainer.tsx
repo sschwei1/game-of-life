@@ -17,7 +17,7 @@ const CellContainer = ({cells, width, height, updateCell}: CellContainerProps) =
   const containerStyleProps = useMemo<CSSProperties>(() => ({
     gridTemplateColumns: `repeat(${width}, 1fr)`,
     gridTemplateRows: `repeat(${height}, 1fr)`
-  }), []);
+  }), [height, width]);
 
   return cellsMatchDimension ? (
     <div

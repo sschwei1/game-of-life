@@ -1,35 +1,58 @@
-import React, { useCallback } from "react";
+import React from "react";
 import {IoAdd, IoRemove} from "react-icons/all";
+import {RangeValue} from "../Game";
 
 interface SpeedSelectorProps {
   handleUpdateSpeed: (newVal: number) => void;
-  speed: number;
+  speed: RangeValue;
 }
 
 const SpeedSelector = ({handleUpdateSpeed, speed}: SpeedSelectorProps) => {
-  const handleSpeedChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    handleUpdateSpeed(Number(value));
-    }, [handleUpdateSpeed]);
+  const updateSpeed = (newVal: number) => {
+    if(isNaN(newVal)) {
+      newVal = speed.default;
+    } else if(newVal < speed.min) {
+      newVal = speed.min;
+    } else if(newVal > speed.max) {
+      newVal = speed.max;
+    }
 
-  const handleSpeedUp = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
-    const newVal = speed + 100;
     handleUpdateSpeed(newVal);
-    }, [handleUpdateSpeed, speed]);
+  };
 
-  const handleSpeedDown = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
-    const newVal = speed - 100;
-    handleUpdateSpeed(newVal);
-    }, [handleUpdateSpeed, speed]);
+  const handleSpeedChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Number(event.target.value);
+    updateSpeed(value);
+  };
+
+  const handleSpeedUp = () => {
+    const newVal = speed.value + 100;
+    updateSpeed(newVal);
+  };
+
+  const handleSpeedDown = () => {
+    const newVal = speed.value - 100;
+    updateSpeed(newVal);
+  };
 
   return (
     <div className='speed-selector'>
-      <button onClick={handleSpeedUp}><IoAdd /></button>
+      <button
+        disabled={speed.value === speed.max}
+        onClick={handleSpeedUp}
+      >
+        <IoAdd />
+      </button>
       <input
-        value={speed}
+        value={speed.value}
         onChange={handleSpeedChange}
       />
-      <button onClick={handleSpeedDown}><IoRemove /></button>
+      <button
+        disabled={speed.value === speed.min}
+        onClick={handleSpeedDown}
+      >
+        <IoRemove />
+      </button>
     </div>
   );
 }
