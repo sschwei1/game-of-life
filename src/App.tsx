@@ -1,3 +1,4 @@
+import React from 'react';
 import './styles/main.less';
 import {Game} from './components/game';
 

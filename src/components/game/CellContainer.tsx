@@ -1,3 +1,4 @@
+import React from 'react';
 import {CSSProperties, useMemo} from 'react';
 import Cell from './Cell';
 

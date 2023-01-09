@@ -9,7 +9,7 @@ interface CellProps {
 
 let currentDragValue = true;
 
-const Cell = React.memo(({value, position, updateCell}: CellProps) => {
+const Cell = ({value, position, updateCell}: CellProps) => {
   const cellClasses = classNames({
     'cell': true,
     'active': value
@@ -35,6 +35,6 @@ const Cell = React.memo(({value, position, updateCell}: CellProps) => {
       onMouseEnter={handleCellMouseOver}
     />
   )
-});
+};
 
-export default Cell;
+export default React.memo(Cell);

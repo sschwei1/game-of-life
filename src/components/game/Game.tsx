@@ -1,3 +1,4 @@
+import React from 'react';
 import CellContainer from './CellContainer';
 import {useCallback, useEffect, useRef, useState} from 'react';
 
