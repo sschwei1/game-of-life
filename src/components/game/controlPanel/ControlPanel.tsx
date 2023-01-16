@@ -3,13 +3,13 @@ import {
   AiOutlineClear,
   BsFillPlayFill,
   BsFillStopFill,
-  CiSettings,
   TbArrowsRandom
 } from 'react-icons/all';
 import React from 'react';
 import {GameOptions, GameState} from '../Game';
 import SpeedSelector from "./SpeedSelector";
 import ControlElement from "./ControlElement";
+import GameSettings from './GameSettings';
 
 interface ControlPanelProps {
   gameOptions: GameOptions;
@@ -100,7 +100,7 @@ const ControlPanel = ({
       </ControlElement>
 
       <ControlElement>
-        <button><CiSettings/></button>
+        <GameSettings />
       </ControlElement>
     </div>
   );
