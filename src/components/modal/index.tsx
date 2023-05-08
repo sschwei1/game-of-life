@@ -28,7 +28,9 @@ const Modal = ({
       onClick={handleClose}
     >
       <div className='content'>
-        {children}
+        <div className='inner'>
+          {children}
+        </div>
       </div>
     </div
 >
