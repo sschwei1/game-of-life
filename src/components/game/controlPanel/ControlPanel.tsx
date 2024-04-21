@@ -9,7 +9,7 @@ import React from 'react';
 import {GameOptions, GameState} from '../Game';
 import SpeedSelector from "./SpeedSelector";
 import ControlElement from "./ControlElement";
-import GameSettings from './GameSettings';
+import {GameSettings} from './gameSettings';
 
 interface ControlPanelProps {
   gameOptions: GameOptions;

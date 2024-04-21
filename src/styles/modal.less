@@ -16,17 +16,29 @@
 
   .content {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     position: relative;
     background: @col-dark;
     border-radius: 10px;
     box-shadow: 1px 1px 3px @col-dark;
     max-width: calc(95% - 40px);
+    padding: 5px 20px;
+
+    h1 {
+      width: 100%;
+      text-align: center;
+      padding-bottom: 5px;
+      border-bottom: 1px @col-primary solid;
+    }
 
     .inner {
       position: relative;
-      margin: 5px 20px;
+      margin: 5px;
       padding: 10px 0;
       overflow: auto;
+      max-width: 100%;
+      width: 100%;
     }
   }
 }

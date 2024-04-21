@@ -4,12 +4,16 @@ interface ModalProps {
   isOpen?: boolean;
   onClose?: () => void;
   children?: React.ReactNode;
+  title?: string;
+  innerClasses?: string[];
 }
 
 const Modal = ({
   isOpen = false,
   onClose,
-  children
+  children,
+  title,
+  innerClasses
 }: ModalProps) => {
   const modalRef = useRef(null);
 
@@ -28,7 +32,8 @@ const Modal = ({
       onClick={handleClose}
     >
       <div className='content'>
-        <div className='inner'>
+        {title && <h1>{title}</h1>}
+        <div className={'inner ' + innerClasses?.join(' ')}>
           {children}
         </div>
       </div>

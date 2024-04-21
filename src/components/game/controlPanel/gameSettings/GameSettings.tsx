@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { CiSettings } from 'react-icons/ci';
-import Modal from '../../modal';
+import Modal from '../../../modal';
+import SettingSection from "./SettingSection";
 
 const GameSettings = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,8 +22,12 @@ const GameSettings = () => {
       <Modal
         isOpen={isModalOpen}
         onClose={handleModalClose}
+        title={'Game Settings'}
+        innerClasses={['setting-modal']}
       >
-        aaa
+        <SettingSection title='Rules'>
+          
+        </SettingSection>
       </Modal>
     </>
   )

@@ -16,6 +16,11 @@ interface GameRules {
   spawn: number[];
 }
 
+interface WallRules {
+  enabled: boolean;
+  countAsAlive: boolean;
+}
+
 export interface RangeValue {
   min: number;
   max: number;
@@ -30,6 +35,7 @@ export interface GameOptions {
   speed: RangeValue;
   randomizerDensity: number;
   gameRules: GameRules;
+  wall: WallRules;
 }
 
 const defaultGameOptions: GameOptions = {
@@ -47,23 +53,32 @@ const defaultGameOptions: GameOptions = {
     dead: [0,1,4,5,6,7,8],
     alive: [2],
     spawn: [3]
+  },
+  wall: {
+    enabled: false,
+    countAsAlive: false
   }
 }
 
 const countNeighbours = (cells: boolean[], x: number, y: number, gameOptions: GameOptions) => {
-  const {width, height} = gameOptions;
+  const {width, height, wall} = gameOptions;
   let cnt = 0;
 
   for(let xMod = -1; xMod <= 1; xMod++) {
     for(let yMod = -1; yMod <= 1; yMod++) {
-      const currX = x + xMod;
-      const currY = y + yMod;
+      if(xMod === 0 && yMod === 0) continue;
 
-      if(
-              (xMod === 0 && yMod === 0) ||
-          (currX < 0 || currX >= width) ||
-          (currY < 0 || currX >= height)
-          ) {
+      let currX = x + xMod;
+      let currY = y + yMod;
+
+      if(!wall.enabled) {
+        currX = (currX + width) % width;
+        currY = (currY + height) % height;
+      }
+
+      if(currX < 0 || currX >= width ||
+         currY < 0 || currY >= height) {
+        if(wall.countAsAlive) cnt++;
         continue;
       }
 
