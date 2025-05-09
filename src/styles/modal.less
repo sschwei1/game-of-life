@@ -23,6 +23,7 @@
     border-radius: 10px;
     box-shadow: 1px 1px 3px @col-dark;
     max-width: calc(95% - 40px);
+    min-width: 60%;
     padding: 5px 20px;
 
     h1 {
@@ -39,6 +40,11 @@
       overflow: auto;
       max-width: 100%;
       width: 100%;
+      flex-grow: 1;
+
+      button {
+        height: auto;
+      }
     }
   }
 }

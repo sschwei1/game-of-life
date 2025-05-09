@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import {CSSProperties, useMemo} from 'react';
 import Cell from './Cell';
 
@@ -19,6 +19,8 @@ const CellContainer = ({cells, width, height, updateCell}: CellContainerProps) =
     gridTemplateRows: `repeat(${height}, 1fr)`
   }), [height, width]);
 
+  const cellDragValue = useRef<boolean>(false);
+
   return cellsMatchDimension ? (
     <div
       className='cell-container'
@@ -31,6 +33,7 @@ const CellContainer = ({cells, width, height, updateCell}: CellContainerProps) =
             value={val}
             position={index}
             updateCell={updateCell}
+            cellDragValue={cellDragValue}
           />
         ))
       }

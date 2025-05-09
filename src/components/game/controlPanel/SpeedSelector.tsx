@@ -38,20 +38,20 @@ const SpeedSelector = ({handleUpdateSpeed, speed}: SpeedSelectorProps) => {
   return (
     <div className='speed-selector'>
       <button
-        disabled={speed.value === speed.max}
-        onClick={handleSpeedUp}
+        disabled={speed.value === speed.min}
+        onClick={handleSpeedDown}
       >
-        <IoAdd />
+        <IoRemove />
       </button>
       <input
         value={speed.value}
         onChange={handleSpeedChange}
       />
       <button
-        disabled={speed.value === speed.min}
-        onClick={handleSpeedDown}
+        disabled={speed.value === speed.max}
+        onClick={handleSpeedUp}
       >
-        <IoRemove />
+        <IoAdd />
       </button>
     </div>
   );

@@ -100,7 +100,10 @@ const ControlPanel = ({
       </ControlElement>
 
       <ControlElement>
-        <GameSettings />
+        <GameSettings
+          gameOption={gameOptions}
+          updateGameOptions={updateGameOptions}
+        />
       </ControlElement>
     </div>
   );
