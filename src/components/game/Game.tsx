@@ -10,7 +10,7 @@ export enum GameState {
   Running
 }
 
-interface GameRules {
+export interface GameRules {
   dead: number[];
   alive: number[];
   spawn: number[];

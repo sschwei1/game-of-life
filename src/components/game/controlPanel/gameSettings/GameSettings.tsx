@@ -54,7 +54,13 @@ const GameSettings = ({gameOption, updateGameOptions}: GameSettingsProps) => {
           modOptions={modGameOptions}
           handleChange={handleFormChange}
         />
-        {/*<RuleSection />*/}
+
+        <RuleSection
+          originalOptions={gameOption}
+          modOptions={modGameOptions}
+          handleChange={handleFormChange}
+        />
+
         <RandomizerSection
           originalOptions={gameOption}
           modOptions={modGameOptions}

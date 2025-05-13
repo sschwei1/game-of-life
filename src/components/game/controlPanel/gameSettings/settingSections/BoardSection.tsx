@@ -34,6 +34,14 @@ const BoardSection = ({originalOptions, modOptions, handleChange}: BoardSectionP
     handleChange({height: newNum});
   }
 
+  const updateWallEnabled = (newVal: boolean) => {
+    handleChange({wall: {...modOptions.wall, enabled: newVal}});
+  }
+
+  const updateCountWallAsAlive = (newVal: boolean) => {
+    handleChange({wall: {...modOptions.wall, countAsAlive: newVal}});
+  }
+
   return (
     <SettingSection title='Board'>
       <Input
@@ -48,6 +56,23 @@ const BoardSection = ({originalOptions, modOptions, handleChange}: BoardSectionP
         value={String(modOptions.height)}
         onChange={updateBoardHeight}
         isDirty={originalOptions.height !== modOptions.height}
+      />
+
+      <Input
+        label="Wall enabled"
+        value={modOptions.wall.enabled ? '1' : ''}
+        onChange={updateWallEnabled}
+        isDirty={originalOptions.wall.enabled !== modOptions.wall.enabled}
+        inputType='checkbox'
+      />
+
+      <Input
+        label="Count wall as alive"
+        value={modOptions.wall.countAsAlive ? '1' : ''}
+        onChange={updateCountWallAsAlive}
+        isDirty={originalOptions.wall.countAsAlive !== modOptions.wall.countAsAlive}
+        inputType='checkbox'
+        disabled={!modOptions.wall.enabled}
       />
     </SettingSection>
   );
